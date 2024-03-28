@@ -1,0 +1,10 @@
+/home/registrocom/workspace/gerenciamentoJSF/src/main/java/com/herick/erp/repository/CamadaPersistencia.java
+/home/registrocom/workspace/gerenciamentoJSF/src/main/java/com/herick/erp/util/TransacionalInterceptor.java
+/home/registrocom/workspace/gerenciamentoJSF/src/main/java/com/herick/erp/model/TipoEmpresa.java
+/home/registrocom/workspace/gerenciamentoJSF/src/main/java/com/herick/erp/repository/SchemaGeneration.java
+/home/registrocom/workspace/gerenciamentoJSF/src/main/java/com/herick/erp/model/Empresa.java
+/home/registrocom/workspace/gerenciamentoJSF/src/main/java/com/herick/erp/repository/Empresas.java
+/home/registrocom/workspace/gerenciamentoJSF/src/main/java/com/herick/erp/repository/RamoAtividades.java
+/home/registrocom/workspace/gerenciamentoJSF/src/main/java/com/herick/erp/util/Transacional.java
+/home/registrocom/workspace/gerenciamentoJSF/src/main/java/com/herick/erp/util/EntityManagerProducer.java
+/home/registrocom/workspace/gerenciamentoJSF/src/main/java/com/herick/erp/model/RamoAtividade.java
