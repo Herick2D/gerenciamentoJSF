@@ -5,39 +5,41 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	>
-<h:head>
-
-<meta charset="UTF-8"/>
-<title>Gestão Empresas</title>
-
-<h:outputStylesheet library="gerenciamento" name="style.css" />
-
-</h:head>
-
-<h:body>
-
-	<header>
-		<h:graphicImage library="gerenciamento" name="logoo.png" />
-	</header>
+<f:view locale="#{localeBean.locale}">
+	<h:head>
 	
-	<h2>
-		<ui:insert name="titulo" />
-	</h2>
-
-	<div id="conteudo">
-		<ui:insert name="conteudo" />
-	</div>
+	<meta charset="UTF-8"/>
+	<title>Gestão Empresas</title>
 	
-	<footer>
-		Gerenciador de empresas - from Herick Softwares™
-	</footer>
-	<h:form>
-	    <p:confirmDialog global="true" >
-	    	<p:commandButton value="Não" icon="fa fa-remove" styleClass="ui-confirmdialog-no" />
-	    	<p:commandButton value="Sim" icon="fa fa-check" styleClass="ui-confirmdialog-yes" />
-    	</p:confirmDialog>
-	</h:form>
-
-</h:body>
+	<h:outputStylesheet library="gerenciamento" name="style.css" />
+	
+	</h:head>
+	
+	<h:body>
+	
+		<header>
+			<h:graphicImage library="gerenciamento" name="logoo.png" />
+		</header>
+		
+		<h2>
+			<ui:insert name="titulo" />
+		</h2>
+	
+		<div id="conteudo">
+			<ui:insert name="conteudo" />
+		</div>
+		
+		<footer>
+			Gerenciador de empresas - #{msgs.from} Herick Softwares™
+		</footer>
+		<h:form>
+		    <p:confirmDialog global="true" >
+		    	<p:commandButton value="#{msgs.negativeBtn}" icon="fa fa-remove" styleClass="ui-confirmdialog-no" />
+		    	<p:commandButton value="#{msgs.affirmativeBtn}" icon="fa fa-check" styleClass="ui-confirmdialog-yes" />
+	    	</p:confirmDialog>
+		</h:form>
+	
+	</h:body>
+</f:view>
 
 </html>

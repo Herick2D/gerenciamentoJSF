@@ -3,9 +3,7 @@ package com.herick.erp.controller;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
-import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -21,6 +19,7 @@ import com.herick.erp.repository.Empresas;
 import com.herick.erp.repository.RamoAtividades;
 import com.herick.erp.service.CadastroEmpresaService;
 import com.herick.erp.util.FacesMessages;
+import com.herick.erp.util.LocaleBean;
 
 
 
@@ -41,6 +40,9 @@ public class GestaoEmpresasBean implements Serializable {
     
     @Inject
     private CadastroEmpresaService cadastroEmpresaService;
+    
+    @Inject
+    private LocaleBean localeBean;
     
     private List<Empresa> listaEmpresas;
     
@@ -154,14 +156,7 @@ public class GestaoEmpresasBean implements Serializable {
     	return empresa != null && empresa.getId() != null;
     }
     
-    public void trocarLocale() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        Locale currentLocale = context.getViewRoot().getLocale();
-        
-        if (currentLocale.getLanguage().equals("pt")) {
-            context.getViewRoot().setLocale(new Locale("en", "US")); 
-        } else {
-            context.getViewRoot().setLocale(new Locale("pt", "BR"));
-        }
+    public void invokeChangeLocale() {
+        localeBean.changeLocale();
     }
 }
