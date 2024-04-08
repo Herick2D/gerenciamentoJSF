@@ -6,8 +6,12 @@
 
 	<application>
 		<locale-config>
-			<default-locale>pt_BR</default-locale>
+			<default-locale>en</default-locale>
 		</locale-config>
+		<resource-bundle>
+			<base-name>messages</base-name>
+			<var>msgs</var>
+		</resource-bundle>
 		
 		<message-bundle>com.herick.erp.Messages</message-bundle>
 	</application>

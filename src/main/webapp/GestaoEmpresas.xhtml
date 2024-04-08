@@ -7,7 +7,7 @@
     template="/WEB-INF/template/Layout.xhtml">
 
 <ui:define name="titulo">
-    Cadastro de Empresas
+    #{msgs.header}
 </ui:define>
 
 <ui:define name="conteudo">
@@ -23,7 +23,7 @@
                 <p:inputText id="searchId" placeholder="Search..." 
                     value="#{gestaoEmpresasBean.termoPesquisa}"/>
                 
-                <p:commandButton value="Pesquisar" icon="fa fa-search" 
+                <p:commandButton value="#{msgs.searchBtn}" icon="fa fa-search" 
                     actionListener="#{gestaoEmpresasBean.pesquisar}" update="empresasDataTable messages"
                     process="@this searchId" />
                 
@@ -31,7 +31,7 @@
                     <span class="ui-icon ui-icon-grip-dotted-vertical" />
                 </span>
                 
-                <p:commandButton value="Nova" icon="fa fa-plus" 
+                <p:commandButton value="#{msgs.newCompanyBtn}" icon="fa fa-plus" 
                 	actionListener="#{gestaoEmpresasBean.prepararNovaEmpresa}"
                     oncomplete="PF('empresaDialogWidgetVar').show()"
                     update="empresaDialog" process="@this" >
@@ -42,7 +42,7 @@
                     <span class="ui-icon ui-icon-grip-dotted-vertical" />
                 </span>
                 
-                <p:commandButton title="Editar" icon="fa fa-edit" 
+                <p:commandButton title="#{msgs.toEdit}" icon="fa fa-edit" 
                 	disabled="#{not gestaoEmpresasBean.empresaSelecionada}" 
                 	actionListener="#{gestaoEmpresasBean.prepararEdicao}"
                 	oncomplete="PF('empresaDialogWidgetVar').show()"
@@ -50,13 +50,13 @@
                 	<p:resetInput target="empresaDialog" />
                 </p:commandButton>
                 
-                <p:commandButton title="Excluir" icon="fa fa-trash"
+                <p:commandButton title="#{msgs.delete}" icon="fa fa-trash"
                 	disabled="#{not gestaoEmpresasBean.empresaSelecionada}" 
                 	actionListener="#{gestaoEmpresasBean.excluir}"
                 	update="messages empresasDataTable toolbar"
                 	process="@this" >
-                	<p:confirm icon="ui-icon-alert" header="Confirmarção de exclusão" 
-                		message="Posso excluir a empresa?" />
+                	<p:confirm icon="ui-icon-alert" header="#{msgs.companyDeleteMsg}" 
+                		message="#{msgs.confirmationDeleteMsg}" />
                 	
                 </p:commandButton>
                 
@@ -64,17 +64,27 @@
                     <span class="ui-icon ui-icon-grip-dotted-vertical" />
                 </span>
                 
-                <p:commandButton title="Exportar para o Excel" icon="fa fa-file-excel-o" 
+                <p:commandButton title="#{msgs.exportToExcel}" icon="fa fa-file-excel-o" 
                 	ajax="false" >
                 	<p:dataExporter type="xls" target="empresasDataTable" fileName="Empresas" />
                 </p:commandButton>
+                
+                <span class="ui-separator">
+                    <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                </span>
+                
+                <p:commandButton value="#{msgs.changeLanguageBtn}" icon="fa fa-language"
+    				actionListener="#{gestaoEmpresasBean.trocarLocale}" 
+    				update="toolbar messages empresasDataTable"
+    				process="@this" />
+                
             </f:facet>
         </p:toolbar>
         
         <p:spacer height="10px" />
         
         <p:dataTable id="empresasDataTable" value="#{gestaoEmpresasBean.listaEmpresas}"
-            var="empresa" emptyMessage="Nenhuma informação a ser exibida"
+            var="empresa" emptyMessage="#{msgs.emptySearchTable}"
             paginator="true" rows="10" paginatorPosition="bottom"
             selectionMode="single" selection="#{gestaoEmpresasBean.empresa}" rowKey="#{empresa.id}" >
             
@@ -82,25 +92,25 @@
             
             <p:ajax event="rowUnselect" update="frm:toolbar" />
         
-            <p:column headerText="Razão social" sortBy="#{empresa.razaoSocial}">
+            <p:column headerText="#{msgs.corporateName}" sortBy="#{empresa.razaoSocial}">
                 <h:outputText value="#{empresa.razaoSocial}" />            
             </p:column>
             
-            <p:column headerText="Nome fantasia" sortBy="#{empresa.nomeFantasia}">
+            <p:column headerText="#{msgs.fantasyName}" sortBy="#{empresa.nomeFantasia}">
                 <h:outputText value="#{empresa.nomeFantasia}" />            
             </p:column>
             
-            <p:column headerText="Tipo empresa" sortBy="#{empresa.tipo}">
+            <p:column headerText="#{msgs.companyType}" sortBy="#{empresa.tipo}">
                 <h:outputText value="#{empresa.tipo}" />            
             </p:column>
             
-            <p:column headerText="Ramo atividade" sortBy="#{empresa.ramoAtividade.descricao}">
+            <p:column headerText="#{msgs.branchActivity}" sortBy="#{empresa.ramoAtividade.descricao}">
                 <h:outputText value="#{empresa.ramoAtividade.descricao}" />            
             </p:column>
         </p:dataTable>
         
         
-        <p:dialog id="empresaDialog" header="Nova empresa" widgetVar="empresaDialogWidgetVar"
+        <p:dialog id="empresaDialog" header="#{msgs.modalNewCompany}" widgetVar="empresaDialogWidgetVar"
             modal="true" resizable="false" closeOnEscape="true">
             <p:messages id="empresaMessages" />
             
@@ -108,15 +118,15 @@
             
         <h:panelGrid id="empresaPanelGrid" columns="2"
         	rendered="#{gestaoEmpresasBean.empresa ne null}">
-        	<p:outputLabel value="Razão social: " for="razaoSocial" />
+        	<p:outputLabel value="#{msgs.corporateName}: " for="razaoSocial" />
         	<p:inputText id="razaoSocial" size="80" maxlength="120" 
         		value="#{gestaoEmpresasBean.empresa.razaoSocial}"/>
         	
-        	<p:outputLabel value="Nome fantasia: " for="nomeFantasia"/>
+        	<p:outputLabel value="#{msgs.fantasyName}: " for="nomeFantasia"/>
         	<p:inputText id="nomeFantasia" size="80" maxlength="80" 
         		value="#{gestaoEmpresasBean.empresa.nomeFantasia}"/>
         	
-        	<p:outputLabel value="Tipo empresa: " for="tipo"/>
+        	<p:outputLabel value="#{msgs.companyType}: " for="tipo"/>
         	<p:selectOneMenu id="tipo" value="#{gestaoEmpresasBean.empresa.tipo}" >
         		<f:selectItem itemLabel="Selecione..." />
         		<f:selectItems value="#{gestaoEmpresasBean.tiposEmpresa}"
@@ -129,11 +139,11 @@
         		size="18" maxlength="18"
         		value="#{gestaoEmpresasBean.empresa.cnpj}" />
         		
-        	<p:outputLabel value="Data fundação: " for="dataFundacao" />
+        	<p:outputLabel value="#{msgs.foundationDate}: " for="dataFundacao" />
         	<p:calendar id="dataFundacao" pattern="dd/MM/yyyy" size="30" 
         		value="#{gestaoEmpresasBean.empresa.dataFundacao}" />
         	
-        	<p:outputLabel value="Ramo atividade: " for="ramoAtividade" />
+        	<p:outputLabel value="#{msgs.branchActivity}: " for="ramoAtividade" />
         	<p:autoComplete id="ramoAtividade" size="80" 
         		value="#{gestaoEmpresasBean.empresa.ramoAtividade}"
         		completeMethod="#{gestaoEmpresasBean.completarRamoAtividade}"

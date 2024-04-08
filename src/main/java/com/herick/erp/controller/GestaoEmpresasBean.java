@@ -3,12 +3,15 @@ package com.herick.erp.controller;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
+import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.omnifaces.util.Faces;
 import org.primefaces.context.RequestContext;
 
 import com.herick.erp.model.Empresa;
@@ -66,7 +69,7 @@ public class GestaoEmpresasBean implements Serializable {
     		todasEmpresas();
     	}
     	
-    	messages.info("Empresa salva com sucesso!");
+    	messages.info(Faces.getResourceBundle("msgs").getString("registerSuccessMsg"));
     	
     	RequestContext.getCurrentInstance().update(Arrays.asList(
     			"frm:empresasDataTable", "frm:messages"));
@@ -79,14 +82,14 @@ public class GestaoEmpresasBean implements Serializable {
     	
     	atualizarRegistros();
     	
-    	messages.info("Empresa excluída com sucesso!");
+    	messages.info(Faces.getResourceBundle("msgs").getString("deleteSuccessMsg"));
     }
     
     public void pesquisar() {
     	listaEmpresas = empresas.find(termoPesquisa);
     	
     	if (listaEmpresas.isEmpty()) {
-    		messages.info("Sua consulta não retornou registros!");
+    		messages.info(Faces.getResourceBundle("msgs").getString("notFoundSearchMsg"));
     	}
     }
     
@@ -149,5 +152,16 @@ public class GestaoEmpresasBean implements Serializable {
     
     public boolean isEmpresaSelecionada() {
     	return empresa != null && empresa.getId() != null;
+    }
+    
+    public void trocarLocale() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Locale currentLocale = context.getViewRoot().getLocale();
+        
+        if (currentLocale.getLanguage().equals("pt")) {
+            context.getViewRoot().setLocale(new Locale("en", "US")); 
+        } else {
+            context.getViewRoot().setLocale(new Locale("pt", "BR"));
+        }
     }
 }
